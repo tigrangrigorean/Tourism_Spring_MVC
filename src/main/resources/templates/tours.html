@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tours</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<nav>
+  <div class="nav__logo"><a href="/">Visit Armenia</a></div>
+  <ul class="nav__links" style="background-color:white">
+    <li class="link"><a href="/" style="color: black; text-decoration: none;">Home</a></li>
+    <li class="link"><a href="/offers" style="color: black; text-decoration: none;">Offers</a></li>
+    <li class="link"><a href="/tours" style="color: black; text-decoration: none;">Tours</a></li>
+    <li class="link"><a href="/services" style="color: black; text-decoration: none;">Services</a></li>
+    <li class="link"><a href="/contacts" style="color: black; text-decoration: none;">Contacts</a></li>
+  </ul>
+</nav>
+
+<h1 style="margin-left: 47%; margin-top:10%;">Տուրեր</h1>
+
+<div class="tour-container" style="margin-top:5%;">
+  <div class="tour-grid">
+    <th:block th:each="city : ${cities}">
+      <div class="tour-item">
+        <div class="tour-image" th:style="'background-image: url(' + ${city.imageUrl} + ');'"></div>
+        <div class="tour-details">
+          <div class="tour-name" th:text="${city.name}">City Name</div>
+          <div class="tour-description" th:text="${city.description}">City Description</div>
+          <button class="book-btn"
+                  th:data-name="${city.name}"
+                  th:data-description="${city.description}"
+                  th:data-image-url="${city.imageUrl}"
+                  onclick="openModal(this)">Book Now</button>
+        </div>
+      </div>
+    </th:block>
+  </div>
+</div>
+
+<!-- Модальное окно -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modalCityName" class="modal-title"></h2>
+    <div id="modalCityDescription" class="modal-description"></div>
+
+    <form id="bookingForm" class="booking-form">
+      <label for="firstName">Name:</label>
+      <input type="text" id="firstName" name="firstName" class="form-input" required><br><br>
+
+      <label for="lastName">Surname:</label>
+      <input type="text" id="lastName" name="lastName" class="form-input" required><br><br>
+
+      <label for="phoneNumber">Phone Number:</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" class="form-input" required><br><br>
+
+      <label for="passengers">Number of Passengers:</label>
+      <input type="number" id="passengers" name="passengers" class="form-input" required><br><br>
+
+      <label for="additionalInfo">Additional Information:</label>
+      <textarea id="additionalInfo" name="additionalInfo" class="form-textarea"></textarea><br><br>
+
+      <input type="hidden" id="cityName" name="cityName">
+
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+
+    <button onclick="closeModal()" class="close-btn">Close</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById("bookingForm").onsubmit = function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch("/tour/book", {
+      method: "POST",
+      body: formData,
+    })
+            .then(response => response.json())
+            .then(data => {
+              closeModal();
+            })
+            .catch(error => {
+              closeModal();
+            });
+  }
+</script>
+
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 30px;
+    width: 60%;
+    max-width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+
+  .modal-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .modal-description {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 30px;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+
+  .close:hover {
+    color: #e74c3c;
+  }
+
+  /* Стили для формы */
+  .booking-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-input:focus {
+    border-color: #3498db;
+  }
+
+  .form-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    min-height: 100px;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-textarea:focus {
+    border-color: #3498db;
+  }
+
+  .submit-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: #2980b9;
+  }
+
+  .close-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  .close-btn:hover {
+    background-color: #c0392b;
+  }
+</style>
+
+
+<script>
+  function openModal(button) {
+
+    var name = button.getAttribute('data-name');
+    var description = button.getAttribute('data-description');
+    // var imageUrl = button.getAttribute('data-image-url');
+
+    document.getElementById("modalCityName").innerText = name;
+    document.getElementById("modalCityDescription").innerText = description;
+    document.getElementById("cityName").value = button.dataset.name;
+    // document.getElementById("modalCityImage").style.backgroundImage = 'url(/assets/images/' + imageUrl + ')';
+    document.getElementById("myModal").style.display = "block";
+  }
+
+  function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+  }
+
+  window.onclick = function(event) {
+    let modal = document.getElementById("myModal");
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+</script>
+
+
+<style>
+  .tour-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .tour-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .tour-item {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .tour-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .tour-details {
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center;
+  }
+
+  .tour-name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .tour-description {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+
+  .book-btn {
+    background-color: #ff9800;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .book-btn:hover {
+    background-color: #e68900;
+  }
+
+  @media (max-width: 1024px) {
+    .tour-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .tour-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+</style>
+
+</body>
+<footer>
+  <div class="section__container">
+    <h4>Visit Armenia</h4>
+    <div class="social__icons">
+      <span><i class="ri-facebook-fill"></i></span>
+      <span><i class="ri-twitter-fill"></i></span>
+      <span><i class="ri-instagram-line"></i></span>
+      <span><i class="ri-linkedin-fill"></i></span>
+    </div>
+    <p>
+      Բացահայտեք աշխարհը՝ սկսելով Հայաստանից!
+    </p>
+  </div>
+</footer>
+</html>

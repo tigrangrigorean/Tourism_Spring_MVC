@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.0.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+  <title>Visit Armenia</title>
+</head>
+<body>
+<nav>
+  <div class="nav__logo"><a href="/">Visit Armenia</a></div>
+  <ul class="nav__links" style="background-color:white">
+    <li class="link"><a href="/" style="color: black; text-decoration: none;">Home</a></li>
+    <li class="link"><a href="/offers" style="color: black; text-decoration: none;">Offers</a></li>
+    <li class="link"><a href="/tours" style="color: black; text-decoration: none;">Tours</a></li>
+    <li class="link"><a href="/services" style="color: black; text-decoration: none;">Services</a></li>
+    <li class="link"><a href="/contacts" style="color: black; text-decoration: none;">Contacts</a></li>
+  </ul>
+</nav>
+
+<header style="background-image: url('/assets/images/morocco.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 80vh; display: flex; align-items: center; color: #fff;">
+  <div class="section__container">
+    <div class="header__content" style="background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;">
+      <h1 style="color: white; text-decoration: none;">Travel</h1>
+      <p>
+        Քայլեք դեպի Հայաստանի սիրտը և զգացեք նրա անմահ գեղեցկությունը։
+        Կովկասյան լեռների վեհաշուք գագաթներից մինչև Երևանի հմայիչ փողոցներ՝ այստեղ ամեն անկյունում մի պատմություն է թաքնված։
+        Թողեք, որ մենք ուղեկցենք ձեզ այս անմոռանալի արկածի ընթացքում։
+      </p>
+      <button th:onclick="|window.location='@{/offers}'|">Ուսումնասիրել</button>
+    </div>
+  </div>
+</header>
+
+
+<section class="journey__container">
+  <div class="section__container">
+    <h2 class="section__title">Հայաստանի շատ որոնվող վայրերը</h2>
+    <p class="section__subtitle">Բացահայտեք այն ուղղությունները, որոնց մասին բոլորը խոսում են:</p>
+
+    <div class="slider" style="
+      --width: 200px;
+      --height: 150px;
+      --quantity: 6;
+    ">
+      <div class="list">
+        <th:block th:each="city, status : ${cities}">
+          <div class="item" th:style="'--position: ' + (${status.index} + 1)">
+            <img th:src="${city.imageUrl}" th:alt="${city.name}">
+            <p th:text="${city.name}"></p>
+          </div>
+        </th:block>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="banner__container" style="background-image: url('/assets/images/bg-banner.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; padding: 60px 0; color: #fff;">
+  <div class="section__container">
+    <div class="banner__content" style="background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;">
+      <h2 style="color: white">Զեղչ 10-30%</h2>
+      <p>
+        Ճանապարհորդեք Հայաստանում նվազագույն ծախսերով մեր անզուգական զեղչված
+        առաջարկներով: Անկախ նրանից՝ ցանկանում եք վերջին րոպեների փախուստ,
+        թե պլանավորում եք նախապես, մենք առաջարկում ենք անհավանական զեղչեր հյուրանոցների և փաթեթների համար։
+        Մի սպասեք, ամրագրեք հիմա և ապրեք անմոռանալի արկածներ՝ առանց շատ ծախսելու։
+      </p>
+      <button th:onclick="|window.location='@{/tours}'|">Տեսնել Տուրերը</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="display__container">
+  <div class="section__container">
+    <h2 class="section__title">Ինչու Ընտրել Մեզ</h2>
+    <p class="section__subtitle">
+      Մարդու կյանքի ամենաերջանիկ պահը՝ ճանապարհորդելն է։
+    </p>
+    <div class="display__grid">
+      <div class="display__card grid-1">
+        <img src="https://abp-am.storage.yandexcloud.net/page/image/e79a21b8-5882-4de9-a444-2e667c869d2c.jpg" alt="grid" />
+      </div>
+      <div class="display__card">
+        <i class="ri-earth-line"></i>
+        <h4>Հետաքրքիր Ճանապարհորդություններ</h4>
+        <p>Բացահայտեք նոր հորիզոններ և սնուցեք ձեր արկածախնդրությունը</p>
+      </div>
+      <div class="display__card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Yerevan_2012_February.JPG" alt="grid" />
+      </div>
+      <div class="display__card">
+        <img src="https://mirrorspectator.com/wp-content/uploads/2021/06/15Travel-1.jpeg" alt="grid" />
+      </div>
+      <div class="display__card">
+        <i class="ri-road-map-line"></i>
+        <h4>Գեղեցիկ Վայրեր</h4>
+        <p>Բացահայտեք Հայաստանի ամենահիասքանչ և շլացուցիչ վայրերը</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer>
+  <div class="section__container">
+    <h4>Visit Armenia</h4>
+    <div class="social__icons">
+      <span><i class="ri-facebook-fill"></i></span>
+      <span><i class="ri-twitter-fill"></i></span>
+      <span><i class="ri-instagram-line"></i></span>
+      <span><i class="ri-linkedin-fill"></i></span>
+    </div>
+    <p>
+      Բացահայտեք աշխարհը՝ սկսելով Հայաստանից!
+    </p>
+  </div>
+</footer>
+</body>
+</html>
