@@ -10,10 +10,13 @@ import java.util.List;
 @Service
 public class CityService {
 
-    @Autowired
     private CityRepository cityRepository;
 
+    public CityService() {
+        cityRepository = CityRepository.getInstance();
+    }
+
     public List<City> getAllCities() {
-        return cityRepository.findAll();
+        return cityRepository.getCityDB();
     }
 }

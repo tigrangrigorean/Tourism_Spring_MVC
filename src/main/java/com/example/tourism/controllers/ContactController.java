@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/contacts")
 public class ContactController {
 
-    @Autowired
-    private ContactRepository contactRepository;
+//    @Autowired
+//    private ContactRepository contactRepository;
     @Autowired
     private SimpleMailSender mailSender;
 
@@ -30,7 +30,7 @@ public class ContactController {
                 + "Հեռախոսահամար: " + contact.getPhone() + "\n"
                 + "Նամակ: " +contact.getMessage();
         mailSender.sendSimpleMessage("tigrangrigoryan003@gmail.com","FROM travels", text);
-        contactRepository.save(contact);
+//        contactRepository.save(contact);
         return "redirect:/contacts?success";
     }
 }

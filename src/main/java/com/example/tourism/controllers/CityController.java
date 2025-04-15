@@ -1,13 +1,11 @@
 package com.example.tourism.controllers;
 
 import com.example.tourism.models.City;
-import com.example.tourism.models.Contact;
 import com.example.tourism.models.Offer;
 import com.example.tourism.models.TourBook;
 import com.example.tourism.repositories.CityRepository;
 import com.example.tourism.repositories.OfferRepository;
 import com.example.tourism.services.SimpleMailSender;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,25 +19,29 @@ import java.util.List;
 @RequestMapping("/")
 public class CityController {
 
-    @Autowired
     private CityRepository cityRepository;
 
-    @Autowired
+
     private OfferRepository offerRepository;
 
-    @Autowired
-    private SimpleMailSender mailSender;
+    private final SimpleMailSender mailSender;
+
+    public CityController(SimpleMailSender mailSender) {
+        this.cityRepository = CityRepository.getInstance();
+        this.offerRepository = OfferRepository.getInstance();
+        this.mailSender = mailSender;
+    }
 
     @GetMapping
     public String index(Model model) {
-        List<City> cities = cityRepository.findAll();
+        List<City> cities = cityRepository.getCityDB();
         model.addAttribute("cities", cities);
         return "index";
     }
 
     @GetMapping("/offers")
     public String showOffersPage(Model model) {
-        List<Offer> offers = offerRepository.findAll();
+        List<Offer> offers = offerRepository.getOfferDB();
         model.addAttribute("offers", offers);
         return "offers";
     }
@@ -47,7 +49,7 @@ public class CityController {
 
     @GetMapping("/tours")
     public String showToursPage(Model model) {
-        List<City> cities = cityRepository.findAll();
+        List<City> cities = cityRepository.getCityDB();
         model.addAttribute("cities", cities);
         return "tours";
     }

@@ -13,9 +13,9 @@ public class DataLoader implements CommandLineRunner {
     private final CityRepository cityRepository;
     private final OfferRepository offerRepository;
 
-    public DataLoader(CityRepository cityRepository, OfferRepository offerRepository) {
-        this.cityRepository = cityRepository;
-        this.offerRepository = offerRepository;
+    public DataLoader() {
+        this.cityRepository = CityRepository.getInstance();
+        this.offerRepository = OfferRepository.getInstance();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private void loadCityData() {
-        if (cityRepository.count() == 0) {
+//        if (cityRepository.count() == 0) {
             City garniGeghardTour = new City();
             garniGeghardTour.setName("Գառնի և Գեղարդ");
             garniGeghardTour.setDescription("Այս տուրը կտանի ձեզ դեպի Գառնիի հեթանոսական տաճար և Գեղարդի վանք, որոնք համարվում են Հայաստանի պատմական ու ճարտարապետական շեմերը: Դիտեք Հայաստանի եզակի բնական գեղեցկությունը և պատմական հուշարձանները.");
@@ -83,14 +83,10 @@ public class DataLoader implements CommandLineRunner {
 
 
             System.out.println("Sample tour data loaded successfully.");
-        } else {
-            System.out.println("Tours are already loaded in the database.");
-        }
-
     }
 
     private void loadOfferData() {
-            if (offerRepository.count() == 0) {
+//            if (offerRepository.count() == 0) {
 
                 Offer garniRomantic = new Offer();
                 garniRomantic.setTitle("Ռոմանտիկ տուր դեպի Գառնի և Գեղարդ");
@@ -147,9 +143,6 @@ public class DataLoader implements CommandLineRunner {
                 offerRepository.save(wineLoversTour);
 
                 System.out.println("Sample offer data loaded successfully.");
-            } else {
-                System.out.println("Offers are already loaded in the database.");
-            }
         }
 
 }
