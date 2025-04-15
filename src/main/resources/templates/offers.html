@@ -169,11 +169,11 @@
 
 <div class="container">
   <div class="slide">
-    <th:block th:each="city : ${cities}">
-      <div class="item" th:style="'background-image: url(' + ${city.imageUrl} + ');'">
+    <th:block th:each="offer : ${offers}">
+      <div class="item" th:style="'background-image: url(' + ${offer.imageUrl} + ');'">
       <div class="content">
-          <div class="name" th:text="${city.name}">City Name</div>
-          <div class="des" th:text="${city.description}">City Description</div>
+          <div class="name" th:text="${offer.title}">City Name</div>
+          <div class="des" th:text="${offer.description}">City Description</div>
           <button th:onclick="|window.location='@{/tours}'|">Book Now</button>
         </div>
       </div>

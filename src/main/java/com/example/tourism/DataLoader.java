@@ -1,25 +1,27 @@
 package com.example.tourism;
 
 import com.example.tourism.models.City;
+import com.example.tourism.models.Offer;
 import com.example.tourism.repositories.CityRepository;
+import com.example.tourism.repositories.OfferRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
-import java.util.*;
 
 @Component
 public class DataLoader implements CommandLineRunner {
 
     private final CityRepository cityRepository;
+    private final OfferRepository offerRepository;
 
-    public DataLoader(CityRepository cityRepository) {
+    public DataLoader(CityRepository cityRepository, OfferRepository offerRepository) {
         this.cityRepository = cityRepository;
+        this.offerRepository = offerRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         loadCityData();
+        loadOfferData();
     }
 
     private void loadCityData() {
@@ -86,4 +88,68 @@ public class DataLoader implements CommandLineRunner {
         }
 
     }
+
+    private void loadOfferData() {
+            if (offerRepository.count() == 0) {
+
+                Offer garniRomantic = new Offer();
+                garniRomantic.setTitle("Ռոմանտիկ տուր դեպի Գառնի և Գեղարդ");
+                garniRomantic.setDescription("Սիրահարների համար իդեալական զբոսանք. բացահայտեք Գառնիի հեթանոսական տաճարն ու Գեղարդի վանքը՝ ձեր սիրելիի հետ՝ վայելելով պատմություն և բնություն միաժամանակ:");
+                garniRomantic.setImageUrl("https://yeranitravel.com/wp-content/uploads/2022/06/Garni-2-min-min.jpg");
+                offerRepository.save(garniRomantic);
+
+                Offer echmiadzinFamily = new Offer();
+                echmiadzinFamily.setTitle("Ընտանեկան տուր Էջմիածին");
+                echmiadzinFamily.setDescription("Իդեալական ընտանեկան օր՝ այցելելով Էջմիածնի մայր տաճարն ու մոտակա վանքերը: Երեխաները կվայելեն պատմության բացահայտումը իսկ ծնողները՝ հոգևոր հանգստությունը:");
+                echmiadzinFamily.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Echmiadzin-cathedral.jpg/640px-Echmiadzin-cathedral.jpg");
+                offerRepository.save(echmiadzinFamily);
+
+                Offer genocideMemorialWeekend = new Offer();
+                genocideMemorialWeekend.setTitle("Պատմական շաբաթավերջ Ծիծեռնակաբերդում");
+                genocideMemorialWeekend.setDescription("Սուզվեք պատմության խորքերը՝ այցելելով Հայոց ցեղասպանության հուշահամալիրը: Լավագույն վայրն է խորհելու, հիշատակելու ու կրթական փորձ ձեռք բերելու համար:");
+                genocideMemorialWeekend.setImageUrl("https://d31qtdfy11mjj9.cloudfront.net/places/1574937681975858231.jpg");
+                offerRepository.save(genocideMemorialWeekend);
+
+                Offer sevanSummerFun = new Offer();
+                sevanSummerFun.setTitle("Ամառային առաջարկ Սևանա լճում");
+                sevanSummerFun.setDescription("Արև, լիճ և հանգիստ՝ Սևանի ափին: Այս առաջարկը ներառում է նավակներով զբոսանք, լող և ճաշ Սևանի կղզում՝ ուղեկցությամբ հիանալի տեսարանների:");
+                sevanSummerFun.setImageUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFdjQ2h60lat1cUgYLUHn0LmkNSz3iJ7tDEA&s");
+                offerRepository.save(sevanSummerFun);
+
+                Offer noravankPhotoTour = new Offer();
+                noravankPhotoTour.setTitle("Նորավանք ֆոտոտուր");
+                noravankPhotoTour.setDescription("Սիրում եք լուսանկարել բնություն և ճարտարապետություն? Այս տուրը ձեզ կտանի դեպի Նորավանք, որտեղ յուրաքանչյուր անկյուն հրաշք կադր է:");
+                noravankPhotoTour.setImageUrl("https://campinginarmenia.com/wp-content/uploads/2020/05/Noravank-3-1-930x620-1.jpg");
+                offerRepository.save(noravankPhotoTour);
+
+                Offer khorVirapSunrise = new Offer();
+                khorVirapSunrise.setTitle("Խոր Վիրապ արևածագով");
+                khorVirapSunrise.setDescription("Վայելեք Խոր Վիրապի մոգական տեսարանը արևածագի ժամանակ՝ Արարատի ֆոնին: Այս արշալույսային փորձը չեք մոռանա երբեք:");
+                khorVirapSunrise.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/a/a3/540_Monast%C3%A8re_de_Khor_Virap_vu_de_pr%C3%A8s.JPG");
+                offerRepository.save(khorVirapSunrise);
+
+                Offer tatevAdventure = new Offer();
+                tatevAdventure.setTitle("Արկածային տուր դեպի Տաթև");
+                tatevAdventure.setDescription("Տաթևի լեռնագնացություն, թռիչք աշխարհի ամենաերկար ճոպանուղով և պատմական վանք այցելություն՝ ամեն ինչ մեկ արկածային օրում:");
+                tatevAdventure.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/c/cd/Tatev_Monastery_from_a_distance.jpg");
+                offerRepository.save(tatevAdventure);
+
+                Offer dilijanRelax = new Offer();
+                dilijanRelax.setTitle("Հանգիստ Դիլիջանում");
+                dilijanRelax.setDescription("Դիլիջան՝ անտառներով շրջապատված հանգստի օազիս: Այս փաթեթը նախատեսված է նրանց համար, ովքեր փնտրում են խաղաղություն, բնություն և թարմ օդ:");
+                dilijanRelax.setImageUrl("https://positiveday.am/_dr/0/77017098.jpg");
+                offerRepository.save(dilijanRelax);
+
+                Offer wineLoversTour = new Offer();
+                wineLoversTour.setTitle("Գինու սիրահարների փաթեթ");
+                wineLoversTour.setDescription("Հայկական գինեգործարանների շրջայց՝ համտեսով, պատմությամբ և իսկական գինու փորձով: Հիանալի է ընկերների կամ զույգերի համար:");
+                wineLoversTour.setImageUrl("https://mediamax.am/datas/znews/big_/2019/05/1557493248_1677354.jpg");
+                offerRepository.save(wineLoversTour);
+
+                System.out.println("Sample offer data loaded successfully.");
+            } else {
+                System.out.println("Offers are already loaded in the database.");
+            }
+        }
+
 }

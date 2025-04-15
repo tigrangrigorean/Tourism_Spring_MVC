@@ -2,8 +2,10 @@ package com.example.tourism.controllers;
 
 import com.example.tourism.models.City;
 import com.example.tourism.models.Contact;
+import com.example.tourism.models.Offer;
 import com.example.tourism.models.TourBook;
 import com.example.tourism.repositories.CityRepository;
+import com.example.tourism.repositories.OfferRepository;
 import com.example.tourism.services.SimpleMailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,9 @@ public class CityController {
     private CityRepository cityRepository;
 
     @Autowired
+    private OfferRepository offerRepository;
+
+    @Autowired
     private SimpleMailSender mailSender;
 
     @GetMapping
@@ -34,8 +39,8 @@ public class CityController {
 
     @GetMapping("/offers")
     public String showOffersPage(Model model) {
-        List<City> cities = cityRepository.findAll();
-        model.addAttribute("cities", cities);
+        List<Offer> offers = offerRepository.findAll();
+        model.addAttribute("offers", offers);
         return "offers";
     }
 
